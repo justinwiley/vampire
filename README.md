@@ -151,6 +151,8 @@ company.accept_with_reference(Comparator.new, company2)
 [false, [true, [true]], [false, [false]]]
 ```
 
+Note depth and node are available to you as well, however they refer to the host object hierarchy, not necessarily the reference.
+
 #### Helpers
 
 The Vampire module brings in 2 helpers:
