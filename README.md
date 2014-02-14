@@ -2,8 +2,10 @@
 
 Vampire is a simple implementation of the visitor pattern in Ruby.
 
+<div style="background-color:black" width=600>
 <img src="http://upload.wikimedia.org/wikipedia/commons/1/19/Bela_lugosi_dracula.jpg"
  alt="Vampire" title="Vampire" height=240 width=315 />
+</div>
 
 ## Installation
 
