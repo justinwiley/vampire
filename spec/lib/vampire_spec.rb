@@ -4,16 +4,15 @@ require 'spec_helper'
 
 class Item
   attr_accessor :name
+  attr_accessor :children
   include Vampire
   def initialize(name); self.name = name; end
 end
 
 class Company < Item
-  attr_accessor :children
 end
 
 class Category < Item
-  attr_accessor :children
 end
 
 class Product < Item
@@ -108,7 +107,8 @@ describe Vampire do
     end
 
     it 'should accept multiple, optional arguments, apply them along with host object' do
-      company.children = []
+      require 'pp'
+      pp company.accept(SteveJobsifier.new, 'Amazing', 'Exceptional')
       company.accept(SteveJobsifier.new, 'Amazing', 'Exceptional').should == [
         "Pancakes Inc. - the most Amazing, Exceptional thing you've ever seen"
       ]

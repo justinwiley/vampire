@@ -29,7 +29,7 @@ module Vampire
     child_vals = []
 
     parent_val = [visitor.visit(self, *args)]
-    if respond_to?(:children)
+    if respond_to?(:children) && children
       visitor.depth += 1
       children.each do |child|
         visitor.node += 1
@@ -47,7 +47,7 @@ module Vampire
     child_vals = []
 
     parent_val = [visitor.visit_with_reference(self, reference_obj, *args)]
-    if respond_to?(:children) && reference_obj.respond_to?(:children) && reference_obj.children && reference_obj.children.any?
+    if respond_to?(:children) && children && reference_obj.respond_to?(:children) && reference_obj.children
       visitor.depth += 1
       reference_obj.children.each_with_index do |ref_child, i|
         if child = children[i]
