@@ -63,7 +63,7 @@ Imagine marketing asks you to spice up the name of each item by throwing a set o
 
 A while later, you're asked to compare your products to a customer's products.  You create a new hierarchy for the customer's products, and write a slightly more complicated recursive function similar to the first that walks your products, comparing them with the other company.
 
-At this point you're feeling unclean, worried about how un-DRY all of this is.  After all, you've got the thing you want to do, and was way to traverse the hierarcy, why rewrite the recursion over and over?
+At this point you're feeling unclean, worried about how un-DRY all of this is.
 
 You stumble across this charming, innocent looking gem.  It's perfectly willing to help, all you have to do is invite it in.
 
