@@ -35,15 +35,16 @@ end
 
 class DisplayHierarchy < Vampire::Visitor
   def visit obj, *args
-    "#{"  " * self.depth}#{obj.name} - id #{self.depth}:#{self.num}"
+    "#{"  " * self.depth}#{obj.name} - id #{self.depth}:#{self.node}"
   end
 end
 
 class SetToReferenceName < Vampire::Visitor
-  def visit obj, ref_obj, *args
+  def visit_with_reference obj, ref_obj, *args
     obj.name = ref_obj.name
   end
 end
+
 
 describe Vampire do
   let(:company) { Company.new 'Pancakes Inc.' }
@@ -53,16 +54,46 @@ describe Vampire do
   let(:prod) { Product.new 'Buttermilk Pancake' }
   let(:prod2) { Product.new 'Hand-rolled Artesianal Bread Disk' }
   let(:prod3) { Product.new 'Ancient Grains' }
+  let(:expected_company_hierarchy) { [company, [cat, [prod]], [cat2, [prod2]], [cat3, [prod3]]] }
+  let(:expected_hierarchy_comparison) { [false, [true, [true]], [false, [false]]] }
 
-  let(:company2) { Company.new 'another company.' }
-  let(:cat4) { Category.new 'Misc' }
+  let(:company2) { Company.new 'McButters Pancakes Inc.' }
+  let(:cat4) { Category.new 'Extra Delicious' }
+  let(:prod4) { Product.new("McButters Fluffy Pancake")}
 
   before do
     cat.children = [prod]
     cat2.children = [prod2]
     cat3.children = [prod3]
     company.children = [cat,cat2,cat3]
-    company2.children = [cat4]
+
+    company2.children = [cat, cat4]
+    cat4.children = [prod4]
+  end
+
+  describe Vampire::Visitor do
+    let(:visitor) { Vampire::Visitor.new }
+
+    it 'should define accessors for current node in tree, and current depth, initialized to zero by default' do
+      visitor.node.should be_zero
+      visitor.depth.should be_zero
+    end
+
+    it '#visit should define a default visit method returning the current object' do
+      company.accept(visitor).should == expected_company_hierarchy
+    end
+
+    it '#visit_with_reference should define a default visit method comparing ' do
+      company.accept_with_reference(visitor, company2).should == expected_hierarchy_comparison
+    end
+  end
+
+  it '#hierarchy should alias default visitor method to return current object' do
+    company.hierarchy.should == expected_company_hierarchy
+  end
+
+  it '#compare_hierarchy should alias default visitor visit_with_reference' do
+    company.compare_hierarchy(company2).should == expected_hierarchy_comparison
   end
 
   describe '#accept' do
@@ -97,8 +128,10 @@ describe Vampire do
   describe '#accept_with_reference' do
     it 'should execute given visitor against host model, using another model with similar hierarchy as reference' do
       company.accept_with_reference(SetToReferenceName.new,company2)
+      company.hierarchy.should == expected_company_hierarchy
       company.name.should == company2.name
-      company.children.map(&:name).should ==  ['Misc','Old Timey', 'Healthy']
+      company.children.map(&:name).should ==  ["Traditional", "Extra Delicious", "Healthy"]
+      company.children.map(&:children).flatten.map(&:name).should == ["Buttermilk Pancake", "McButters Fluffy Pancake", "Ancient Grains"]
     end
   end
 end

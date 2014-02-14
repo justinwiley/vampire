@@ -70,11 +70,14 @@ class SteveJobsifier < Vampire::Visitor
     obj.name = "#{obj.name} - the most #{args.join(', ')} thing you've ever seen"
   end
 end
+```
 
+It shouldn't inclu
+
+```ruby
 company.accept(SteveJobsifier.new, "Amazing", "Exceptional")
  => ["Oats Inc - the most Amazing, Exceptional thing you've ever seen", ["Whole Grain - the most  thing you've ever seen", ["Modern - the most  thing you've ever seen"], ["Pappy's Old Fashioned - the most  thing you've ever seen"]]]
 ```
-
 Great.  But it shouldn't update the name of the company itself.
 
 class SteveJobsifier
