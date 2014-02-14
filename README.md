@@ -56,9 +56,9 @@ Pancakes Inc.
     Ancient Grains
 ```
 
-Imagine marketing asks you to spice up the name of each item by throwing a set of adjectives on each.  So you whip up a recursive function, problem solved.
+Imagine marketing asks you to spice up the name of each item by throwing a set of adjectives on each.  So you whip up a recursive function, problem solved.  Over the course of several months you have similar tasks to update the hierarchy, and so you copy and paste and tweak the algorithm.
 
-At some point down the road, it turns out you need to compare your products to a customer.  You create a new hierarchy for the customer's products, and write a slightly more complicated recursive function similar to the first that walks your products, comparing them with the other company.
+A while later, you're asked to compare your products to a customer's products.  You create a new hierarchy for the customer's products, and write a slightly more complicated recursive function similar to the first that walks your products, comparing them with the other company.
 
 At this point you're feeling unclean, worried about how un-DRY all of this is.  After all, you've got the thing you want to do, and was way to traverse the hierarcy, why rewrite the recursion over and over?
 
