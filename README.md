@@ -100,7 +100,7 @@ company.accept(SteveJobsifier.new, "Amazing", "Exceptional")
   ["Ancient Grains - the most Amazing, Exceptional thing you've ever seen"]]]
 ```
 
-So the visitor object does the work, and the accept function does the traversing.  So you can chuck all the old recursive code and just keep this simple class.  Note the structure returned: a hierarchical array of arrays.
+So you can chuck all the old recursive code and just keep this simple class.  Note the structure returned: a hierarchical array of arrays.
 
 But wait, you say: I don't want to update the first element, the name of the company itself.  It's already spicey enough.
 
