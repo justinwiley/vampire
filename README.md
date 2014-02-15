@@ -45,7 +45,14 @@ cat3 = Category.new 'Healthy'
 prod = Product.new 'Buttermilk Pancake'
 prod2 = Product.new 'Hand-rolled Artesianal Bread Disk'
 prod3 = Product.new 'Ancient Grains'
+
+cat.children = [prod]
+cat2.children = [prod2]
+cat3.children = [prod3]
+company.children = [cat,cat2,cat3]
 ```
+
+Here we used POROs, but this could easily be an ActiveRecord hierarchy (see caveats below).
 
 This gives you a hierarchy that looks like:
 
@@ -76,7 +83,7 @@ class Item
 end
 ```
 
-You look at your old recursive method, and create a seperate class with a single method "visit", that inherits from Vampire::Visitor and describes the action to take on each object in the heirarchy.
+You look at your old recursive method, and create a separate class with a single method "visit", that inherits from Vampire::Visitor and describes the action to take on each object in the heirarchy.
 
 ```ruby
 class SteveJobsifier < Vampire::Visitor
@@ -123,7 +130,7 @@ As accept walks the hierarchy, it updates these two accessors appropriately.
 
 ### Comparing two similar object hierarchies
 
-Now you look at your other function, which compares your companies product's with another:
+Now you look at your other function, which compares your company's products with another:
 
 This time you'll be using another method, visit_with_reference, that takes an object, and compares it with another reference object and returns the results.
 
@@ -181,6 +188,10 @@ company.compare_hierarcy(company2)
  - Objects in your hierachy must respond to a method called "children" which produces an array-like list of children
  - No tail-recursion, so quite possible to have a stack overflow for super-deep hierarchies
  - "It sure would be nice to apply an arbitrary block to a hierarchy, instead of having to create a method and pass it around."  I agree.
+
+## Thanks to:
+
+ - George Entenman
 
 ## Contributing
 

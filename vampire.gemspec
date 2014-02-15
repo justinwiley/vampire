@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Vampire::VERSION
   gem.authors       = ["Justin Wiley"]
   gem.email         = ["justin.wiley@gmail.com"]
-  gem.description   = %q{TODO: A Ruby implementation of the visitor pattern}
-  gem.summary       = %q{TODO: A Ruby implementation of the visitor pattern}
+  gem.description   = %q{A Ruby implementation of the visitor pattern}
+  gem.summary       = %q{A Ruby implementation of the visitor pattern}
   gem.homepage      = "http://github.com/justinwiley/vampire"
 
   gem.files         = `git ls-files`.split($/)
