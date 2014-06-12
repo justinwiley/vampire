@@ -55,7 +55,7 @@ cat3.children = [prod3]
 company.children = [cat,cat2,cat3]
 ```
 
-Here we used POROs, but this could easily be an ActiveRecord hierarchy (see caveats below).
+Here we used [PORO](http://blog.jayfields.com/2007/10/ruby-poro.html)s, but this could also apply to an ActiveRecord hierarchy (see caveats below).
 
 This gives you a hierarchy that looks like:
 
@@ -69,13 +69,21 @@ Pancakes Inc.
     Ancient Grains
 ```
 
-Imagine marketing asks you to spice up the name of each item by throwing a set of adjectives on each.  So you whip up a recursive function, problem solved.  Over the course of several months you have similar tasks to update the hierarchy, and so you copy and paste and tweak the algorithm.
+Imagine marketing asks you to spice up the name of each item by throwing a set of adjectives on the front of each description.
 
-A while later, you're asked to compare your products to a customer's products.  You create a new hierarchy for the customer's products, and write a slightly more complicated recursive function similar to the first that walks your products, comparing them with the other company.
+```
+Amazing Pancakes Inc.
+  Traditional
+    Awesome Buttermilk Pancake
+  Old Timey
+    Awesome Hand-rolled Artesianal Bread Disk
+  Healthy
+    Awesome Ancient Grains
+```
 
-At this point you're feeling unclean, worried about how un-DRY all of this is.
+You whip up a recursive function that walks the hierarchy and updates the description as appopriate.  Months go by, a new marketing visionary joins who wants to update the description agains, with totally different rules.
 
-You stumble across this charming, innocent looking gem.  It's perfectly willing to help, all you have to do is invite it in.
+Your recursive function is now getting a little unweildy, and difficult to test.  But you happen across this charming gem.  It's perfectly willing to help, all you have to do is invite it into your object hierarchy.
 
 #### Traversing an object hierarchy
 
