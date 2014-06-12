@@ -23,7 +23,10 @@ Or install it yourself as:
 
 The [visitor pattern](http://en.wikipedia.org/wiki/Visitor_pattern) "seperates the algorithm from object hierarchy".  What this means in practice is it allows you to focus on what you want to change in a hierarchy of objects, instead of writing boilerplate to recursively walk it.
 
+This is essentially a way to work around Ruby's lack of support for [double-dispatch](http://lostechies.com/derekgreer/2010/04/19/double-dispatch-is-a-code-smell/).
+
 For example, imagine you have a hierarchical set of objects that describe a company, categories of products, and the products themselves.  Each object has a name attribute.
+
 
 ```ruby
 class Item
