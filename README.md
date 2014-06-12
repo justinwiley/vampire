@@ -25,7 +25,7 @@ The [visitor pattern](http://en.wikipedia.org/wiki/Visitor_pattern) "seperates t
 
 This is essentially a way to work around Ruby's lack of support for [double-dispatch](http://lostechies.com/derekgreer/2010/04/19/double-dispatch-is-a-code-smell/).
 
-For example, imagine you have a hierarchical set of objects that describe a company, categories of products, and the products themselves.  Each object has a name attribute.
+For example, imagine you have a hierarchical set of objects that describe a company, categories of products, and the products themselves.  Each object has a "children" accessor that contains pointers to objects underneath it in the hierarchy.
 
 
 ```ruby
@@ -69,10 +69,10 @@ Pancakes Inc.
     Ancient Grains
 ```
 
-Imagine marketing asks you to spice up the name of each item by throwing a set of adjectives on the front of each description.
+Imagine marketing asks you to spice up the name of each item by throwing a set of adjectives on the front of each description.  You whip up a recursive function that walks the hierarchy and updates the description as appopriate.
 
 ```
-Amazing Pancakes Inc.
+Awesome Pancakes Inc.
   Traditional
     Awesome Buttermilk Pancake
   Old Timey
@@ -81,7 +81,7 @@ Amazing Pancakes Inc.
     Awesome Ancient Grains
 ```
 
-You whip up a recursive function that walks the hierarchy and updates the description as appopriate.  Months go by, a new marketing visionary joins who wants to update the description agains, with totally different rules.
+Months go by, a new marketing visionary joins and declares that the descriptions be updated, with totally different rules.
 
 Your recursive function is now getting a little unweildy, and difficult to test.  But you happen across this charming gem.  It's perfectly willing to help, all you have to do is invite it into your object hierarchy.
 
@@ -107,6 +107,9 @@ end
 Visit is called by the corresponding method that was injected when you included Vampire in your object hierarcy "accept".  An instance of the SteveJobsifier will be passed down the hierarchy, working its magic:
 
 ```ruby
+
+company = Company.first
+
 company.accept(SteveJobsifier.new, "Amazing", "Exceptional")
 =>
 ["Pancakes Inc. - the most Amazing, Exceptional thing you've ever seen",
