@@ -89,7 +89,7 @@ Your recursive function is now getting a little unweildy, and difficult to test.
 
 ```ruby
 class Item
-  include Vampire  # so happy to make your aquaintence
+  include Vampire  # so happy to make your acquaintance
   ...
 end
 ```
