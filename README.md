@@ -21,7 +21,7 @@ Or install it yourself as:
 
 ## Usage
 
-The [visitor pattern](http://butunclebob.com/ArticleS.UncleBob.IuseVisitor) "seperates the algorithm from object hierarchy".  What this means in practice is it allows you to focus on what you want to change in a hierarchy of objects, instead of writing boilerplate to recursively walk it.
+The [visitor pattern](http://butunclebob.com/ArticleS.UncleBob.IuseVisitor) "separates the algorithm from object hierarchy".  What this means in practice is it allows you to focus on what you want to change in a hierarchy of objects, instead of writing boilerplate to recursively walk it.
 
 This is essentially a way to work around Ruby's lack of support for [double-dispatch](http://lostechies.com/derekgreer/2010/04/19/double-dispatch-is-a-code-smell/).
 
@@ -30,8 +30,7 @@ For example, imagine you have a hierarchical set of objects that describe a comp
 
 ```ruby
 class Item
-  attr_accessor :name
-  attr_accessor :children
+  attr_accessor :name, :children
   def initialize(name); self.name = name; end
 end
 
@@ -46,7 +45,7 @@ cat = Category.new 'Traditional'
 cat2 = Category.new 'Old Timey'
 cat3 = Category.new 'Healthy'
 prod = Product.new 'Buttermilk Pancake'
-prod2 = Product.new 'Hand-rolled Artesianal Bread Disk'
+prod2 = Product.new 'Hand-rolled Artisanal Bread Disk'
 prod3 = Product.new 'Ancient Grains'
 
 cat.children = [prod]
@@ -64,7 +63,7 @@ Pancakes Inc.
   Traditional
     Buttermilk Pancake
   Old Timey
-    Hand-rolled Artesianal Bread Disk
+    Hand-rolled Artisanal Bread Disk
   Healthy
     Ancient Grains
 ```
@@ -81,9 +80,9 @@ Awesome Pancakes Inc.
     Awesome Ancient Grains
 ```
 
-Months go by, a new marketing visionary joins and declares that the descriptions be updated, with totally different rules.
+Months go by, and a new marketing visionary joins and asks you to update these descriptions, but with totally different rules.
 
-Your recursive function is now getting a little unweildy, and difficult to test.  But you happen across this charming gem.  It's perfectly willing to help, all you have to do is invite it into your object hierarchy.
+Your dust-off your recursive function,  but it's now getting a little unweildy, and difficult to test.  Enter this charming gem.  It's perfectly willing to help, all you have to do is invite it into your object hierarchy.
 
 #### Traversing an object hierarchy
 
@@ -123,7 +122,7 @@ company.accept(SteveJobsifier.new, "Amazing", "Exceptional")
 
 So you can chuck all the old recursive code and just keep this simple class.  Note the structure returned: a hierarchical array of arrays.
 
-But wait, you say: I don't want to update the first element, the name of the company itself.  It's already spicey enough.
+"But wait," the marketing director says.  "I don't want to update the first element, the name of the company itself."
 
 ```ruby
 class SteveJobsifier < Vampire::Visitor
@@ -189,10 +188,10 @@ company.hierarchy
 # a nested array of true or false comparison results
 ```
 
-Compare_hierarchy performs the same task as above, without the need for a seperate class.  Nodes are compared via == method.
+compare_hierarchy performs the same task as above, without the need for a seperate class.  Nodes are compared via == method.
 
 ```ruby
-company.compare_hierarcy(company2)
+company.compare_hierarchy(company2)
 =>
 # a nested array of true or false comparison results
 ```
@@ -200,6 +199,7 @@ company.compare_hierarcy(company2)
 ## Caveats
 
  - Objects in your hierachy must respond to a method called "children" which produces an array-like list of children
+ - The entire object graph will be loaded into memory
  - No tail-recursion, so quite possible to have a stack overflow for super-deep hierarchies
  - "It sure would be nice to apply an arbitrary block to a hierarchy, instead of having to create a method and pass it around."  I agree.
 
